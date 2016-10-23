@@ -7,6 +7,7 @@
 
 Thermistor temp(0);
 int temperature;
+int lightPin = 1;
 
 void setup() {
   Serial.begin(9600);
@@ -17,6 +18,9 @@ void loop() {
   Serial.print("Sensor temperature: ");
   Serial.print(temperature);
   Serial.println("*C");
+
+  Serial.print("Photoresistor: ");
+  Serial.println(analogRead(lightPin));
   delay(1000);
 }
 
