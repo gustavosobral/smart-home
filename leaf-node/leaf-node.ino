@@ -1,14 +1,22 @@
+#include <Thermistor.h>
+
 #include <SPI.h>
 #include <RF24_config.h>
 #include <nRF24L01.h>
 #include <RF24.h>
 
-void setup() {
-  // put your setup code here, to run once:
+Thermistor temp(0);
+int temperature;
 
+void setup() {
+  Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  temperature = temp.getTemp();
+  Serial.print("Sensor temperature: ");
+  Serial.print(temperature);
+  Serial.println("*C");
+  delay(1000);
 }
+
