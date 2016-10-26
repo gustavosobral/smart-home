@@ -32,6 +32,6 @@ void loop() {
   Serial.println(light);
 
   data[0] = light;
-  radio.write(data, 1);
+  radio.write(data, sizeof(data));
 }
 

@@ -19,7 +19,7 @@ void loop() {
   if (radio.available()) {
     bool done = false;
     while (!done) {
-      done = radio.read(data, 1);
+      done = radio.read(data, sizeof(data));
       Serial.print("Recieved: ");
       Serial.println(data[0]);
     }
