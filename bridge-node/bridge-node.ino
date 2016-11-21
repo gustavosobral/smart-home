@@ -19,7 +19,6 @@ int data[1];
 
 void setup() {
   Serial.begin(9600);
-
   SPI.begin();
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -40,8 +39,6 @@ void loop() {
     bool done = false;
     while (!done) {
       done = radio.read(data, sizeof(data));
-      Serial.print("Recieved: ");
-      Serial.println(data[0]);
       service.postData(String(data[0]));
     }
   }

@@ -25,12 +25,6 @@ void loop() {
   temperature = temp.getTemp();
   light = analogRead(lightPin);
 
-  Serial.print("Sensor temperature: ");
-  Serial.print(temperature);
-  Serial.println("*C");
-  Serial.print("Photoresistor: ");
-  Serial.println(light);
-
   data[0] = light;
   radio.write(data, sizeof(data));
 }
