@@ -1,6 +1,6 @@
-#include <Thermistor.h>
-
 #include <SPI.h>
+
+#include <Thermistor.h>
 #include <nRF24L01.h>
 #include <RF24.h>
 
@@ -12,7 +12,7 @@ int lightPin = 1;
 
 int temperature;
 int light;
-int data[1];
+int data[2];
 
 void setup() {
   Serial.begin(9600);
@@ -26,6 +26,7 @@ void loop() {
   light = analogRead(lightPin);
 
   data[0] = light;
+  data[1] = temperature;
   radio.write(data, sizeof(data));
 }
 
