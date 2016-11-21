@@ -11,21 +11,21 @@ Thermistor temp(0);
 int lightPin = 1;
 
 int temperature;
-int light;
+int luminosity;
 int data[2];
 
 void setup() {
   Serial.begin(9600);
-  
+
   radio.begin();
   radio.openWritingPipe(pipe);
 }
 
 void loop() {
   temperature = temp.getTemp();
-  light = analogRead(lightPin);
+  luminosity = analogRead(lightPin);
 
-  data[0] = light;
+  data[0] = luminosity;
   data[1] = temperature;
   radio.write(data, sizeof(data));
 }

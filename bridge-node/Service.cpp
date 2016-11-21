@@ -15,11 +15,9 @@ void Service::init(byte * mac, IPAddress server, IPAddress ip) {
   _server = server;
 }
 
-String Service::postData(String data) {
+String Service::postData(String body) {
   // if you get a connection, report back via serial:
-  if (_client.connect(_server, 8000)) {
-    String body = "{\"data\":\"" + data + "\"}";
-    
+  if (_client.connect(_server, 8000)) {    
     // Make a HTTP request:
     _client.println("POST /api/data HTTP/1.1");
     _client.println("Host: 192.168.25.46");

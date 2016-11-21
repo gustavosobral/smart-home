@@ -3,6 +3,7 @@
 
 #include <nRF24L01.h>
 #include <RF24.h>
+#include <ArduinoJson.h>
 
 #include "Service.h"
 
@@ -16,7 +17,15 @@ RF24 radio(3, 4);
 const uint64_t pipe = 0xE13CBAF433LL;
 int data[2];
 
+// JSON
+StaticJsonBuffer<200> jsonBuffer;
+JsonObject& root = jsonBuffer.createObject();
+JsonArray& luminosity = root.createNestedArray("luminosity");
+JsonArray& temperature = root.createNestedArray("temperature");
+
 Service service;
+int i = 0;
+String request;
 
 void setup() {
   Serial.begin(9600);
@@ -26,7 +35,7 @@ void setup() {
   }
 
   Serial.print("Initializing...");
-  
+
   radio.begin();
   radio.openReadingPipe(1, pipe);
   radio.startListening();
@@ -36,11 +45,23 @@ void setup() {
 }
 
 void loop() {
+
   if (radio.available()) {
     bool done = false;
+
     while (!done) {
       done = radio.read(data, sizeof(data));
-      service.postData(String(data[0]));
+      luminosity.add(data[0]);
+      temperature.add(data[1]);
+
+      if(i == 9) {
+        root.printTo(request);
+        service.postData(request);
+
+        i = 0;
+        jsonBuffer = StaticJsonBuffer<200>();
+      }
+      i++;
     }
   }
 }
