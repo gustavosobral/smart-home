@@ -15,7 +15,7 @@ int light;
 int data[1];
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(9600);
   
   radio.begin();
   radio.openWritingPipe(pipe);
