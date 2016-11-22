@@ -15,11 +15,11 @@ class Service
 {
   public:
     Service();
-    void init(byte * mac, IPAddress server, IPAddress ip);
+    void init(byte * mac, char* server, IPAddress ip);
     String postData(String data);
   private:
     EthernetClient _client;
-    IPAddress _server;
+    char* _server;
     String handleResponse();
 };
 

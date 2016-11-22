@@ -8,7 +8,7 @@
 
 Service::Service(){};
 
-void Service::init(byte * mac, IPAddress server, IPAddress ip) {
+void Service::init(byte * mac, char* server, IPAddress ip) {
   if (Ethernet.begin(mac) == 0) {
     Ethernet.begin(mac, ip);
   }
@@ -17,10 +17,10 @@ void Service::init(byte * mac, IPAddress server, IPAddress ip) {
 
 String Service::postData(String body) {
   // if you get a connection, report back via serial:
-  if (_client.connect(_server, 8000)) {    
+  if (_client.connect(_server, 8000)) {
     // Make a HTTP request:
     _client.println("POST /api/v1/data HTTP/1.1");
-    _client.println("Host: 192.168.25.46");
+    _client.println("Host: " + String(_server));
     _client.println("User-Agent: arduino-ethernet");
     _client.println("Accept: application/json");
     _client.println("Content-Type: application/json");

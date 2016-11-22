@@ -10,8 +10,9 @@
 
 // Ethernet
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress server(192, 168, 25, 46);
 IPAddress ip(192, 168, 25, 150); // Set the static IP address to use if the DHCP fails to assign
+char serverName[] = "192.168.25.46";
+//char serverName[] = "obscure-reaches-52416.herokuapp.com";
 
 // nRF24L01
 RF24 radio(3, 4);
@@ -40,7 +41,7 @@ void setup() {
   radio.begin();
   radio.openReadingPipe(1, pipe);
   radio.startListening();
-  service.init(mac, server, ip);
+  service.init(mac, serverName, ip);
   root.set("uuid", UUID);
 
   Serial.println(" Ok!");
@@ -62,6 +63,7 @@ void loop() {
 
         i = 0;
         jsonBuffer = StaticJsonBuffer<200>();
+        delay(1000);
       }
       i++;
     }
