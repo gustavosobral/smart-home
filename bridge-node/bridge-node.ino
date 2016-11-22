@@ -6,6 +6,7 @@
 #include <ArduinoJson.h>
 
 #include "Service.h"
+#define UUID "5d4144ea-93c6-480b-90dc-e3f474df4ce0"
 
 // Ethernet
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -40,6 +41,7 @@ void setup() {
   radio.openReadingPipe(1, pipe);
   radio.startListening();
   service.init(mac, server, ip);
+  root.set("uuid", UUID);
 
   Serial.println(" Ok!");
 }
