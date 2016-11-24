@@ -17,13 +17,14 @@ char serverName[] = "192.168.25.46";
 // nRF24L01
 RF24 radio(3, 4);
 const uint64_t pipe = 0xE13CBAF433LL;
-int data[2];
+int data[3];
 
 // JSON
 StaticJsonBuffer<200> jsonBuffer;
 JsonObject& root = jsonBuffer.createObject();
 JsonArray& luminosity = root.createNestedArray("luminosity");
 JsonArray& temperature = root.createNestedArray("temperature");
+JsonArray& ppm = root.createNestedArray("ppm");
 
 Service service;
 int i = 0;
@@ -56,6 +57,7 @@ void loop() {
       done = radio.read(data, sizeof(data));
       luminosity.add(data[0]);
       temperature.add(data[1]);
+      ppm.add(data[2]);
 
       if(i == 9) {
         root.printTo(request);
@@ -63,7 +65,7 @@ void loop() {
 
         i = 0;
         jsonBuffer = StaticJsonBuffer<200>();
-        delay(1000);
+        delay(5000);
       }
       i++;
     }
